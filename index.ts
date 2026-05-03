@@ -2,6 +2,16 @@ import Docker from "dockerode";
 import { readdir, writeFile } from "node:fs/promises";
 import { relative, sep } from "node:path";
 
+export type InitProjectResult = {
+  success: true;
+  path: string;
+};
+
+export type BuildImageResult = {
+  success: true;
+  tag: string;
+};
+
 export class SSDK {
   private docker: Docker;
 
@@ -9,14 +19,14 @@ export class SSDK {
     this.docker = new Docker();
   }
 
-  async initProject(projectPath: string) {
+  async initProject(projectPath: string): Promise<InitProjectResult> {
     const template = this.getTemplate();
     const path = `${projectPath}/Dockerfile`;
     await writeFile(path, template);
     return { success: true, path };
   }
 
-  async buildImage(projectPath: string, tag: string) {
+  async buildImage(projectPath: string, tag: string): Promise<BuildImageResult> {
     const stream = await this.docker.buildImage(
       {
         context: projectPath,
@@ -45,7 +55,10 @@ export class SSDK {
     return { success: true, tag };
   }
 
-  async createAndRunContainer(image: string, name: string) {
+  async createAndRunContainer(
+    image: string,
+    name: string,
+  ): Promise<Docker.Container> {
     const container = await this.docker.createContainer({
       Image: image,
       name: name,
@@ -55,15 +68,15 @@ export class SSDK {
     return container;
   }
 
-  async stopContainer(container: Docker.Container) {
+  async stopContainer(container: Docker.Container): Promise<void> {
     await container.stop();
   }
 
-  async removeContainer(container: Docker.Container) {
+  async removeContainer(container: Docker.Container): Promise<void> {
     await container.remove();
   }
 
-  async restartContainer(container: Docker.Container) {
+  async restartContainer(container: Docker.Container): Promise<void> {
     await container.restart();
   }
 
