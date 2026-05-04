@@ -4,6 +4,6 @@
   "license": "MIT",
   "exports": "./index.ts",
   "publish": {
-    "exclude": ["example/", ".github/"]
+    "exclude": ["examples/", ".github/"]
   }
 }

@@ -12,6 +12,13 @@ export type BuildImageResult = {
   tag: string;
 };
 
+export type CreateContainerOptions = {
+  env?: Record<string, string | undefined>;
+  cmd?: string[];
+  binds?: string[];
+  ports?: Record<string, string>;
+};
+
 export class SSDK {
   private docker: Docker;
 
@@ -58,11 +65,39 @@ export class SSDK {
   async createAndRunContainer(
     image: string,
     name: string,
+    options: CreateContainerOptions = {},
   ): Promise<Docker.Container> {
+    const env = options.env
+      ? Object.entries(options.env)
+          .filter((entry): entry is [string, string] => entry[1] !== undefined)
+          .map(([key, value]) => `${key}=${value}`)
+      : undefined;
+    const exposedPorts = options.ports
+      ? Object.fromEntries(Object.keys(options.ports).map((port) => [port, {}]))
+      : undefined;
+    const portBindings = options.ports
+      ? Object.fromEntries(
+          Object.entries(options.ports).map(([containerPort, hostPort]) => [
+            containerPort,
+            [{ HostPort: hostPort }],
+          ]),
+        )
+      : undefined;
+
     const container = await this.docker.createContainer({
       Image: image,
       name: name,
       Tty: true,
+      Env: env,
+      Cmd: options.cmd,
+      ExposedPorts: exposedPorts,
+      HostConfig:
+        options.binds || portBindings
+          ? {
+              Binds: options.binds,
+              PortBindings: portBindings,
+            }
+          : undefined,
     });
     await container.start();
     return container;
