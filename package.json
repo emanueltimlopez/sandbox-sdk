@@ -1,6 +1,6 @@
 {
   "name": "@liquid.code/sandbox-sdk",
-  "version": "0.1.5",
+  "version": "0.1.6",
   "description": "Small SDK for creating and running Docker-backed sandboxes.",
   "type": "module",
   "main": "./dist/index.js",
@@ -11,6 +11,10 @@
       "import": "./dist/index.js"
     }
   },
+  "files": [
+    "dist",
+    "README.md"
+  ],
   "publishConfig": {
     "access": "public"
   },

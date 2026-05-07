@@ -1,6 +1,15 @@
+# Source
+index.ts
+tsconfig.json
+
+# Development
 examples/
 .github/
 
 # Logs and system files
 *.log
 .DS_Store
+
+# Git
+.git
+.gitignore
