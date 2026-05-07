@@ -1,8 +1,14 @@
-# sandbox-sdk
+# @liquid.code/sandbox-sdk
 
 A small SDK for creating and running Docker-backed sandboxes from Node.js/TypeScript.
 
 > **Note:** This SDK is experimental. APIs, behavior, and generated Docker assets may change without notice.
+
+## Installation
+
+```bash
+npm install @liquid.code/sandbox-sdk
+```
 
 The SDK generates a base `Dockerfile` for Bun projects, builds a Docker image from a local directory, and exposes helpers to create, start, stop, restart, remove, and read logs from containers.
 
@@ -26,7 +32,7 @@ npm run build
 `initProject(projectPath)` writes a `Dockerfile` into the provided directory.
 
 ```ts
-import { SSDK } from "./index.ts";
+import { SSDK } from "@liquid.code/sandbox-sdk";
 
 const sdk = new SSDK();
 
@@ -80,7 +86,7 @@ await sdk.removeContainer(container);
 ### Complete example
 
 ```ts
-import { SSDK } from "./index.ts";
+import { SSDK } from "@liquid.code/sandbox-sdk";
 
 const sdk = new SSDK();
 const projectPath = "./my-bun-app";

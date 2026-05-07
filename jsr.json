@@ -1,9 +1,0 @@
-{
-  "name": "@liquidcode/sandbox-sdk",
-  "version": "0.1.0",
-  "license": "MIT",
-  "exports": "./index.ts",
-  "publish": {
-    "exclude": ["examples/", ".github/"]
-  }
-}
