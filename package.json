@@ -1,6 +1,6 @@
 {
   "name": "@liquid.code/sandbox-sdk",
-  "version": "0.1.7",
+  "version": "0.1.8",
   "description": "Small SDK for creating and running Docker-backed sandboxes.",
   "type": "module",
   "main": "./dist/index.js",
@@ -20,12 +20,12 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/liquid-code-org/sandbox-sdk.git"
+    "url": "git+https://github.com/emanueltimlopez/sandbox-sdk.git"
   },
   "bugs": {
-    "url": "https://github.com/liquid-code-org/sandbox-sdk/issues"
+    "url": "https://github.com/emanueltimlopez/sandbox-sdk/issues"
   },
-  "homepage": "https://github.com/liquid-code-org/sandbox-sdk#readme",
+  "homepage": "https://github.com/emanueltimlopez/sandbox-sdk#readme",
   "scripts": {
     "build": "tsc -p tsconfig.json",
     "pack:dry": "npm pack --dry-run",
